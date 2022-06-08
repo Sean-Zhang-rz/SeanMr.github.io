@@ -16,22 +16,22 @@
   <meta name="author" content="Sean Zhang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="作者：Sean 前言 ：XSS 和 CSRF 是常见的网络安全问题，忽视它们可能为应用带来巨大的打击和损失。其中 XSS 名声在外，通常都会采取各种措施进行防护。而 CSRF 却经常被忽视，被认为攻击性没有 XSS 大。但两者可能造成的后果都是严重的。  1. Cross Site Scripting1.1 XSS 是什么XSS 攻击是跨站脚本攻击。攻击者通过在网站注入恶意脚本，使之在用户的浏览">
+    <meta name="description" content="作者：Sean 前言 ：为什么有跨域问题？ 当客户端向服务器端请求数据的时候，如果两者不同源，即协议号，域名或者端口号有任一不一样，则浏览器为了安全起见将会拦截服务器端响应的数据。这就是同源政策。而 JSONP 则是一种打破同源政策的方法。  1. 什么是 JSONPJSONP 是 “JSON with padding” 的简写，是在 Web 服务上流行的一种 JSON 变体。 JSONP 利用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络安全-XSS &amp; CSRF">
-<meta property="og:url" content="http://example.com/2022/06/07/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8-XSS-CSRF/index.html">
+<meta property="og:title" content="如何解决跨域问题">
+<meta property="og:url" content="http://example.com/2022/06/08/%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="作者：Sean 前言 ：XSS 和 CSRF 是常见的网络安全问题，忽视它们可能为应用带来巨大的打击和损失。其中 XSS 名声在外，通常都会采取各种措施进行防护。而 CSRF 却经常被忽视，被认为攻击性没有 XSS 大。但两者可能造成的后果都是严重的。  1. Cross Site Scripting1.1 XSS 是什么XSS 攻击是跨站脚本攻击。攻击者通过在网站注入恶意脚本，使之在用户的浏览">
+<meta property="og:description" content="作者：Sean 前言 ：为什么有跨域问题？ 当客户端向服务器端请求数据的时候，如果两者不同源，即协议号，域名或者端口号有任一不一样，则浏览器为了安全起见将会拦截服务器端响应的数据。这就是同源政策。而 JSONP 则是一种打破同源政策的方法。  1. 什么是 JSONPJSONP 是 “JSON with padding” 的简写，是在 Web 服务上流行的一种 JSON 变体。 JSONP 利用">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-07T15:09:05.000Z">
-<meta property="article:modified_time" content="2022-06-07T15:11:26.512Z">
+<meta property="article:published_time" content="2022-06-08T14:40:58.000Z">
+<meta property="article:modified_time" content="2022-06-08T14:41:20.794Z">
 <meta property="article:author" content="Sean Zhang">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>网络安全-XSS &amp; CSRF - Hexo</title>
+  <title>如何解决跨域问题 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="网络安全-XSS &amp; CSRF"></span>
+            <span id="subtitle" data-typed-text="如何解决跨域问题"></span>
           
         </div>
 
@@ -205,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-07 23:09" pubdate>
-          2022年6月7日 晚上
+        <time datetime="2022-06-08 22:40" pubdate>
+          2022年6月8日 晚上
         </time>
       </span>
     
@@ -266,78 +266,40 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">网络安全-XSS &amp; CSRF</h1>
+            <h1 style="display: none">如何解决跨域问题</h1>
             
             <div class="markdown-body">
               
               <blockquote>
 <p>作者：Sean</p>
-<p>前言 ：XSS 和 CSRF 是常见的网络安全问题，忽视它们可能为应用带来巨大的打击和损失。其中 XSS 名声在外，通常都会采取各种措施进行防护。而 CSRF 却经常被忽视，被认为攻击性没有 XSS 大。但两者可能造成的后果都是严重的。</p>
+<p>前言 ：为什么有跨域问题？</p>
+<p>当客户端向服务器端请求数据的时候，如果两者不同源，即<strong>协议号，域名或者端口号有任一不一样</strong>，则<strong>浏览器</strong>为了安全起见将会拦截服务器端响应的数据。这就是同源政策。而 JSONP 则是一种打破同源政策的方法。</p>
 </blockquote>
-<h1 id="1-Cross-Site-Scripting"><a href="#1-Cross-Site-Scripting" class="headerlink" title="1. Cross Site Scripting"></a>1. Cross Site Scripting</h1><h2 id="1-1-XSS-是什么"><a href="#1-1-XSS-是什么" class="headerlink" title="1.1 XSS 是什么"></a>1.1 XSS 是什么</h2><p>XSS 攻击是<strong>跨站脚本攻击</strong>。攻击者通过在网站注入恶意脚本，使之在用户的浏览器上运行，从而盗取用户信息，比如 cookie 等。这是因为网站没有对恶意代码进行过滤，与正常代码混合在一起了，浏览器没有办法分辨哪些脚本是可信的。</p>
-<h2 id="1-2-XSS-有哪些类型"><a href="#1-2-XSS-有哪些类型" class="headerlink" title="1.2 XSS 有哪些类型"></a>1.2 XSS 有哪些类型</h2><ul>
-<li><strong>存储型（服务器）</strong>，恶意代码提交到了网站的数据库中，当用户请求数据的时候，服务器将其拼接为 HTML 后返回给用户，从而导致恶意代码执行</li>
-<li><strong>反射性（服务器）</strong>，攻击者构建了特殊的 URL，当服务器接受到请求后，从 URL 中获取数据，拼接到 HTML 后返回，从而导致恶意代码执行</li>
-<li><strong>DOM 型（浏览器）</strong>，攻击者构建了特殊的 URL，用户打开网站后，js 脚本从 URL 中获取数据，从而导致了恶意代码的执行</li>
+<h1 id="1-什么是-JSONP"><a href="#1-什么是-JSONP" class="headerlink" title="1. 什么是 JSONP"></a>1. 什么是 JSONP</h1><p>JSONP 是 “JSON with padding” 的简写，是在 Web 服务上流行的一种 JSON 变体。</p>
+<p>JSONP 利用<code>&lt;script&gt;</code>标签没有跨域限制的漏洞，网页可以获得其他来源动态产生的 JSON 数据。后端将数据进行相应的转化就能绕开浏览器的同源政策，将数据发送给前端。这也意味着使用 JSONP 需要前端和后端共同支持。</p>
+<h1 id="2-如何使用-JSONP"><a href="#2-如何使用-JSONP" class="headerlink" title="2. 如何使用 JSONP"></a>2. 如何使用 JSONP</h1><h2 id="2-1-实现流程"><a href="#2-1-实现流程" class="headerlink" title="2.1 实现流程"></a>2.1 实现流程</h2><ul>
+<li>声明一个回调函数，该函数将作为请求参数和接受处理数据的重要工具。函数的形参为要获取目标数据。</li>
+<li>动态创建一个<code>script</code>标签插入文本中。把跨域的 API 几口写在 src 属性上，并且将在后面拼接上<code>?callback=回调函数</code>的参数。</li>
+<li>服务器端收到请求后，把传进来的函数名和他需要的数据拼接成一个字符串</li>
+<li>最后服务器把准备的数据返回给客户端，客户端还是使用之前声明的回调函数对返回的数据进行操作。</li>
 </ul>
-<h2 id="1-3-如何预防-XSS"><a href="#1-3-如何预防-XSS" class="headerlink" title="1.3 如何预防 XSS"></a>1.3 如何预防 XSS</h2><h3 id="1-3-1-恶意代码提交时过滤代码"><a href="#1-3-1-恶意代码提交时过滤代码" class="headerlink" title="1.3.1 恶意代码提交时过滤代码"></a>1.3.1 <strong>恶意代码提交时过滤代码</strong></h3><ul>
-<li><p>检测输入的信息，进行前端过滤和后端过滤</p>
-<p class="note note-danger"><strong>不推荐</strong><br/>
-    可能会引起乱码等意外的情况</p>
-</li>
-<li><p>数据存入数据库中时进行转义处理。比如把<code>&amp; &lt; &gt; &quot; &#39; /</code> 等字符转义掉</p>
-<p class="note note-primary"><strong>推荐-服务端</strong><br/>
-    对于转义CSS内联样式，内敛JS，内联JSON等需要额外且复杂的转义策略</p></li>
-</ul>
-<h3 id="1-3-2-浏览器执行恶意代码时方案"><a href="#1-3-2-浏览器执行恶意代码时方案" class="headerlink" title="1.3.2 浏览器执行恶意代码时方案"></a>1.3.2 <strong>浏览器执行恶意代码时方案</strong></h3><ul>
-<li><p>纯前端渲染。</p>
-<ul>
-<li>先让浏览器加载一个静态 HTML，此 HTML 中不包含任何跟业务相关数据。</li>
-<li>然后浏览器执行 HTML 的 js 脚本。</li>
-<li>JS 通过 ajax 加载业务数据，调用 DOM API 更新到页面上。在纯前端渲染中，会明确告诉浏览器，下面要设置的内容)是文本<code>(.innerText)</code>还是属性<code>(.setAttribute)</code>还是要是<code>(.style)</code>。这样浏览器不会被轻易欺骗。</li>
-</ul>
-<p class="note note-primary"><strong>推荐-浏览器</strong><br/>
-    简单设置无法防御DOM型XSS，需要使用.textContent, vue避免使用v-html等</p>
-</li>
-<li><p>白名单</p>
-</li>
-<li><p>限制输入内容长度。可以增加 XSS 攻击难度，但是没有从根本上解决问题<strong>（推荐）</strong></p>
-</li>
-<li><p>HTTP-only Cookie：禁止 JS 读取某些敏感 Cookie，攻击者完成 XSS 注入之后也无法获取 cookie<strong>（推荐）</strong></p>
-</li>
-<li><p>验证码：防止脚本冒充用户提交危险操作</p>
-</li>
-</ul>
-<h1 id="2-Cross-Site-Request-Forgery"><a href="#2-Cross-Site-Request-Forgery" class="headerlink" title="2. Cross Site Request Forgery"></a>2. Cross Site Request Forgery</h1><h2 id="2-1-CSRF-是什么"><a href="#2-1-CSRF-是什么" class="headerlink" title="2.1 CSRF 是什么"></a>2.1 CSRF 是什么</h2><p>CSRF 指跨站请求伪造攻击，攻击者诱导用户进入一个第三方网站，然后该网站向被攻击网站发送跨站请求。如果用户在被攻击网站中保存了登录状态，那么攻击者就可以利用这个登录状态，绕过后台的用户验证，冒充用户向服务器进行一些操作。这是利用了 cookie 会在同源请求中携带发送给服务器的特点，以实现用户冒充</p>
-<h2 id="2-2-CSRF-有哪些类型"><a href="#2-2-CSRF-有哪些类型" class="headerlink" title="2.2 CSRF 有哪些类型"></a>2.2 CSRF 有哪些类型</h2><ul>
-<li><strong>get 型</strong>，比如一个 img 标签里构建了一个请求</li>
-<li><strong>post 型</strong>，隐藏的表单，用户进入页面的时候自动提交</li>
-<li><strong>链接型</strong>，诱导用户点击一个链接，该链接会发送请求</li>
-</ul>
-<h2 id="2-3-如何预防-CSRF"><a href="#2-3-如何预防-CSRF" class="headerlink" title="2.3 如何预防 CSRF"></a>2.3 如何预防 CSRF</h2><h3 id="2-3-1-同源检测"><a href="#2-3-1-同源检测" class="headerlink" title="2.3.1 同源检测"></a>2.3.1 <strong>同源检测</strong></h3><p>使用 Origin Header 或者 Referer Header 确定源域名。</p>
-<ul>
-<li>O：大部分请求的 Header 中会携带 Origin 字段，如果存在即为同域。但也存在两种以外情况（IE11 同源政策，302 重定向）。</li>
-<li>R：验证 HTTP 头里的 Referer 字段（其中包括了请求来源地址）</li>
-</ul>
-<h3 id="2-3-2-CSRF-Token-验证"><a href="#2-3-2-CSRF-Token-验证" class="headerlink" title="2.3.2 CSRF Token 验证"></a>2.3.2 <strong>CSRF Token 验证</strong></h3><p>使用 Token 进行身份验证，这样 CSRF 攻击无法获取，也就冒充不了。需要注意的是，Token 是可以放在 cookie 中的，为防止 CSRF，就不能放在 cookie 中了，应当放在 session 中。</p>
-<p class="note note-primary"><strong>推荐</strong><br/>
-    安全性高，但是繁琐且消耗资源大。使用Token对单服务器在大流量的情况压力非常大。并且在会话中存储Token非常繁琐，而且不能在通用的拦截上统一处理所有的接口。</p>
+<h2 id="2-2-封装一个-JSONP"><a href="#2-2-封装一个-JSONP" class="headerlink" title="2.2 封装一个 JSONP"></a>2.2 封装一个 JSONP</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/* index.html */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">jsonp</span>(<span class="hljs-params">&#123; url, params, callback &#125;</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> script = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">creatElement</span>(<span class="hljs-string">&#x27;script&#x27;</span>);<br>    <span class="hljs-variable language_">window</span>[callback] = <span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;<br>      <span class="hljs-title function_">resolve</span>(data);<br>      <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">removeChild</span>(script);<br>    &#125;;<br>    params = &#123; ...params, callback &#125;;<br>    <span class="hljs-keyword">let</span> arrs = [];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> parmas) &#123;<br>      arrs.<span class="hljs-title function_">push</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;key&#125;</span>=<span class="hljs-subst">$&#123;params[key]&#125;</span>`</span>);<br>    &#125;<br>    script.<span class="hljs-property">src</span> = <span class="hljs-string">`<span class="hljs-subst">$&#123;url&#125;</span>?<span class="hljs-subst">$&#123;arrs.join(<span class="hljs-string">&#x27;&amp;&#x27;</span>)&#125;</span>`</span>;<br>    <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(script);<br>  &#125;);<br>&#125;<br><span class="hljs-title function_">jsonp</span>(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;https://www.xxxxx.com:3000/name&#x27;</span>,<br>  <span class="hljs-attr">params</span>: &#123; <span class="hljs-attr">age</span>: <span class="hljs-number">20</span> &#125;,<br>  <span class="hljs-attr">callback</span>: <span class="hljs-string">&#x27;show&#x27;</span>,<br>&#125;).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);<br>&#125;);<br></code></pre></td></tr></table></figure>
 
-<h3 id="2-3-3-双重-cookie-验证"><a href="#2-3-3-双重-cookie-验证" class="headerlink" title="2.3.3 双重 cookie 验证"></a>2.3.3 <strong>双重 cookie 验证</strong></h3><p>在用户访问网站页面时，</p>
-<ul>
-<li>想请求域名注入一个 cookie，内容为随机字符串</li>
-<li>在前端向后端发起请求时，取出 cookie，并添加到 URL 的参数中</li>
-<li>后端接口验证 Cookie 中的字段与 URL 参数中的字段是否一致，不一致则拒绝。</li>
+<h2 id="2-2-服务器端实现"><a href="#2-2-服务器端实现" class="headerlink" title="2.2 服务器端实现"></a>2.2 服务器端实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><span class="hljs-keyword">var</span> urllib = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;url&#x27;</span>);<br><span class="hljs-keyword">var</span> port = <span class="hljs-number">8080</span>;<br><span class="hljs-keyword">var</span> data = &#123; <span class="hljs-attr">data</span>: <span class="hljs-string">&#x27;world&#x27;</span> &#125;;<br>http<br>  .<span class="hljs-title function_">createServer</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) &#123;<br>    <span class="hljs-keyword">var</span> params = urllib.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">url</span>, <span class="hljs-literal">true</span>);<br>    <span class="hljs-keyword">if</span> (params.<span class="hljs-property">query</span>.<span class="hljs-property">callback</span>) &#123;<br>      <span class="hljs-comment">// jsonp</span><br>      <span class="hljs-keyword">var</span> str = params.<span class="hljs-property">query</span>.<span class="hljs-property">callback</span> + <span class="hljs-string">&#x27;(&#x27;</span> + <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data) + <span class="hljs-string">&#x27;)&#x27;</span>;<br>      res.<span class="hljs-title function_">end</span>(str);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      res.<span class="hljs-title function_">end</span>();<br>    &#125;<br>  &#125;)<br>  .<span class="hljs-title function_">listen</span>(port, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;jsonp server is on&#x27;</span>);<br>  &#125;);<br></code></pre></td></tr></table></figure>
+
+<h1 id="3-为什么要使用-JSONP"><a href="#3-为什么要使用-JSONP" class="headerlink" title="3. 为什么要使用 JSONP"></a>3. 为什么要使用 JSONP</h1><ul>
+<li><p><strong>简单易用</strong>，解决了主流浏览器跨域数据访问的问题</p>
+</li>
+<li><p><strong>兼容性好</strong>，支持 IE9 以下浏览器</p>
+</li>
 </ul>
-<p class="note note-primary"><strong>推荐</strong><br/>
-    但是在大型网站上安全性没有Token高</p>
-
-<h3 id="2-3-4-使用samesite-cookie"><a href="#2-3-4-使用samesite-cookie" class="headerlink" title="2.3.4 使用samesite cookie"></a>2.3.4 使用<code>samesite cookie</code></h3><p>限制 cookie 不被第三方使用。将 samesite 设为 strict，表示这个 cookie 在任何情况下都不可能作为第三方 cookie。将其设置为 Lax，如果是个 GET 请求，则这个 cookie 可以作为第三方 cookie。</p>
-<p class="note note-primary"><strong>推荐</strong><br/>
-    但不支持子域，所以子域没有办法与主域共享登录信息</p>
-
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903685122703367#heading-29">前端安全系列（一）：如何防止 XSS 攻击？</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903689702866952#heading-32">前端安全系列之二：如何防止 CSRF 攻击？</a>
+<h1 id="4-JSONP-有什么缺点"><a href="#4-JSONP-有什么缺点" class="headerlink" title="4. JSONP 有什么缺点"></a>4. JSONP 有什么缺点</h1><ul>
+<li>JSONP 仅支持 get 方法</li>
+<li>安全系数不高，容易遭受 XSS 攻击</li>
+<li>不好确定 JSONP 是否请求失败。开发者经常需要使用计时器来确认请求响应时间并决定是否放弃等待响应。但即使如此还是不准确，因为不同用户网络连接速度和带宽是不一样的</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007665361">jsonp 的原理与实现</a>
+<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903767226351623">九种跨域方式实现原理 (完整版)</a>
 <a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               
             </div>
@@ -355,13 +317,20 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="category-chain-item">计算机网络</a>
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">前端开发</a>
   
   
     <span>></span>
     
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E7%BD%91%E7%BB%9C/" class="category-chain-item">前端网络</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E7%BD%91%E7%BB%9C/%E8%B7%A8%E5%9F%9F/" class="category-chain-item">跨域</a>
+  
+  
+
   
 
   
@@ -389,8 +358,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>网络安全-XSS &amp; CSRF</div>
-      <div>http://example.com/2022/06/07/网络安全-XSS-CSRF/</div>
+      <div>如何解决跨域问题</div>
+      <div>http://example.com/2022/06/08/如何解决跨域问题/</div>
     </div>
     <div class="license-meta">
       
@@ -402,7 +371,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月7日</div>
+          <div>2022年6月8日</div>
         </div>
       
       
@@ -432,15 +401,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/08/%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="如何解决跨域问题">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">如何解决跨域问题</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2022/06/07/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8-XSS-CSRF/" title="网络安全-XSS &amp; CSRF">
+                        <span class="hidden-mobile">网络安全-XSS &amp; CSRF</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
