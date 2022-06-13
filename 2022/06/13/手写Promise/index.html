@@ -16,22 +16,22 @@
   <meta name="author" content="Sean Zhang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="作者：Sean 前言 ：为什么有跨域问题？ 当客户端向服务器端请求数据的时候，如果两者不同源，即协议号，域名或者端口号有任一不一样，则浏览器为了安全起见将会拦截服务器端响应的数据。这就是同源政策。而 JSONP 则是一种打破同源政策的方法。  1. 什么是 JSONPJSONP 是 “JSON with padding” 的简写，是在 Web 服务上流行的一种 JSON 变体。 JSONP 利用">
+    <meta name="description" content="作者：Sean 前言：手写具备 A+规范的 Promise 高级前端必会面试题  1、搭个框架1234567891011121314151617class _Promise &amp;#123;  state: &amp;#x27;pending&amp;#x27;,  constructor(fn) &amp;#123;    fn(this.resolve, this.reject)  &amp;#125;  resolve(re">
 <meta property="og:type" content="article">
-<meta property="og:title" content="跨域问题">
-<meta property="og:url" content="http://example.com/2022/06/09/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="手写Promise">
+<meta property="og:url" content="http://example.com/2022/06/13/%E6%89%8B%E5%86%99Promise/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="作者：Sean 前言 ：为什么有跨域问题？ 当客户端向服务器端请求数据的时候，如果两者不同源，即协议号，域名或者端口号有任一不一样，则浏览器为了安全起见将会拦截服务器端响应的数据。这就是同源政策。而 JSONP 则是一种打破同源政策的方法。  1. 什么是 JSONPJSONP 是 “JSON with padding” 的简写，是在 Web 服务上流行的一种 JSON 变体。 JSONP 利用">
+<meta property="og:description" content="作者：Sean 前言：手写具备 A+规范的 Promise 高级前端必会面试题  1、搭个框架1234567891011121314151617class _Promise &amp;#123;  state: &amp;#x27;pending&amp;#x27;,  constructor(fn) &amp;#123;    fn(this.resolve, this.reject)  &amp;#125;  resolve(re">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-09T13:22:32.000Z">
-<meta property="article:modified_time" content="2022-06-09T13:22:54.769Z">
+<meta property="article:published_time" content="2022-06-13T15:29:12.000Z">
+<meta property="article:modified_time" content="2022-06-13T15:47:21.742Z">
 <meta property="article:author" content="Sean Zhang">
-<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>跨域问题 - Hexo</title>
+  <title>手写Promise - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="跨域问题"></span>
+            <span id="subtitle" data-typed-text="手写Promise"></span>
           
         </div>
 
@@ -205,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-09 21:22" pubdate>
-          2022年6月9日 晚上
+        <time datetime="2022-06-13 23:29" pubdate>
+          2022年6月13日 晚上
         </time>
       </span>
     
@@ -217,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.9k 字
+          399 字
         
       </span>
     
@@ -228,7 +228,7 @@
         
         
         
-          16 分钟
+          4 分钟
         
       </span>
     
@@ -266,41 +266,17 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">跨域问题</h1>
+            <h1 style="display: none">手写Promise</h1>
             
             <div class="markdown-body">
               
               <blockquote>
 <p>作者：Sean</p>
-<p>前言 ：为什么有跨域问题？</p>
-<p>当客户端向服务器端请求数据的时候，如果两者不同源，即<strong>协议号，域名或者端口号有任一不一样</strong>，则<strong>浏览器</strong>为了安全起见将会拦截服务器端响应的数据。这就是同源政策。而 JSONP 则是一种打破同源政策的方法。</p>
+<p>前言：手写具备 A+规范的 Promise</p>
+<p>高级前端必会面试题</p>
 </blockquote>
-<h1 id="1-什么是-JSONP"><a href="#1-什么是-JSONP" class="headerlink" title="1. 什么是 JSONP"></a>1. 什么是 JSONP</h1><p>JSONP 是 “JSON with padding” 的简写，是在 Web 服务上流行的一种 JSON 变体。</p>
-<p>JSONP 利用<code>&lt;script&gt;</code>标签没有跨域限制的漏洞，网页可以获得其他来源动态产生的 JSON 数据。后端将数据进行相应的转化就能绕开浏览器的同源政策，将数据发送给前端。这也意味着使用 JSONP 需要前端和后端共同支持。</p>
-<h1 id="2-如何使用-JSONP"><a href="#2-如何使用-JSONP" class="headerlink" title="2. 如何使用 JSONP"></a>2. 如何使用 JSONP</h1><h2 id="2-1-实现流程"><a href="#2-1-实现流程" class="headerlink" title="2.1 实现流程"></a>2.1 实现流程</h2><ul>
-<li>声明一个回调函数，该函数将作为请求参数和接受处理数据的重要工具。函数的形参为要获取目标数据。</li>
-<li>动态创建一个<code>script</code>标签插入文本中。把跨域的 API 几口写在 src 属性上，并且将在后面拼接上<code>?callback=回调函数</code>的参数。</li>
-<li>服务器端收到请求后，把传进来的函数名和他需要的数据拼接成一个字符串</li>
-<li>最后服务器把准备的数据返回给客户端，客户端还是使用之前声明的回调函数对返回的数据进行操作。</li>
-</ul>
-<h2 id="2-2-封装一个-JSONP"><a href="#2-2-封装一个-JSONP" class="headerlink" title="2.2 封装一个 JSONP"></a>2.2 封装一个 JSONP</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/* index.html */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">jsonp</span>(<span class="hljs-params">&#123; url, params, callback &#125;</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">let</span> script = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">creatElement</span>(<span class="hljs-string">&#x27;script&#x27;</span>);<br>    <span class="hljs-variable language_">window</span>[callback] = <span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) &#123;<br>      <span class="hljs-title function_">resolve</span>(data);<br>      <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">removeChild</span>(script);<br>    &#125;;<br>    params = &#123; ...params, callback &#125;;<br>    <span class="hljs-keyword">let</span> arrs = [];<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> parmas) &#123;<br>      arrs.<span class="hljs-title function_">push</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;key&#125;</span>=<span class="hljs-subst">$&#123;params[key]&#125;</span>`</span>);<br>    &#125;<br>    script.<span class="hljs-property">src</span> = <span class="hljs-string">`<span class="hljs-subst">$&#123;url&#125;</span>?<span class="hljs-subst">$&#123;arrs.join(<span class="hljs-string">&#x27;&amp;&#x27;</span>)&#125;</span>`</span>;<br>    <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(script);<br>  &#125;);<br>&#125;<br><span class="hljs-title function_">jsonp</span>(&#123;<br>  <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;https://www.xxxxx.com:3000/name&#x27;</span>,<br>  <span class="hljs-attr">params</span>: &#123; <span class="hljs-attr">age</span>: <span class="hljs-number">20</span> &#125;,<br>  <span class="hljs-attr">callback</span>: <span class="hljs-string">&#x27;show&#x27;</span>,<br>&#125;).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(data);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<h2 id="1、搭个框架"><a href="#1、搭个框架" class="headerlink" title="1、搭个框架"></a>1、搭个框架</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">_Promise</span> &#123;<br>  <span class="hljs-attr">state</span>: <span class="hljs-string">&#x27;pending&#x27;</span>,<br><br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">resolve</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">reject</span>)<br>  &#125;<br><br>  <span class="hljs-title function_">resolve</span>(<span class="hljs-params">result</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = <span class="hljs-string">&#x27;fullfilled&#x27;</span>;<br>    <span class="hljs-title function_">queueMicrotask</span>(<span class="hljs-function">()=&gt;</span>&#123;&#125;)<br>  &#125;<br>  <span class="hljs-title function_">reject</span>(<span class="hljs-params">reason</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = <span class="hljs-string">&#x27;rejected&#x27;</span>;<br>    <span class="hljs-title function_">queueMicrotask</span>(<span class="hljs-function">()=&gt;</span>&#123;&#125;)<br>  &#125;<br>  <span class="hljs-title function_">then</span>(<span class="hljs-params">onResolve?, onReject?</span>) &#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h2 id="2-2-服务器端实现"><a href="#2-2-服务器端实现" class="headerlink" title="2.2 服务器端实现"></a>2.2 服务器端实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><span class="hljs-keyword">var</span> urllib = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;url&#x27;</span>);<br><span class="hljs-keyword">var</span> port = <span class="hljs-number">8080</span>;<br><span class="hljs-keyword">var</span> data = &#123; <span class="hljs-attr">data</span>: <span class="hljs-string">&#x27;world&#x27;</span> &#125;;<br>http<br>  .<span class="hljs-title function_">createServer</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) &#123;<br>    <span class="hljs-keyword">var</span> params = urllib.<span class="hljs-title function_">parse</span>(req.<span class="hljs-property">url</span>, <span class="hljs-literal">true</span>);<br>    <span class="hljs-keyword">if</span> (params.<span class="hljs-property">query</span>.<span class="hljs-property">callback</span>) &#123;<br>      <span class="hljs-comment">// jsonp</span><br>      <span class="hljs-keyword">var</span> str = params.<span class="hljs-property">query</span>.<span class="hljs-property">callback</span> + <span class="hljs-string">&#x27;(&#x27;</span> + <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data) + <span class="hljs-string">&#x27;)&#x27;</span>;<br>      res.<span class="hljs-title function_">end</span>(str);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      res.<span class="hljs-title function_">end</span>();<br>    &#125;<br>  &#125;)<br>  .<span class="hljs-title function_">listen</span>(port, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;jsonp server is on&#x27;</span>);<br>  &#125;);<br></code></pre></td></tr></table></figure>
-
-<h1 id="3-为什么要使用-JSONP"><a href="#3-为什么要使用-JSONP" class="headerlink" title="3. 为什么要使用 JSONP"></a>3. 为什么要使用 JSONP</h1><ul>
-<li><p><strong>简单易用</strong>，解决了主流浏览器跨域数据访问的问题</p>
-</li>
-<li><p><strong>兼容性好</strong>，支持 IE9 以下浏览器</p>
-</li>
-</ul>
-<h1 id="4-JSONP-有什么缺点"><a href="#4-JSONP-有什么缺点" class="headerlink" title="4. JSONP 有什么缺点"></a>4. JSONP 有什么缺点</h1><ul>
-<li>JSONP 仅支持 get 方法</li>
-<li>安全系数不高，容易遭受 XSS 攻击</li>
-<li>不好确定 JSONP 是否请求失败。开发者经常需要使用计时器来确认请求响应时间并决定是否放弃等待响应。但即使如此还是不准确，因为不同用户网络连接速度和带宽是不一样的</li>
-</ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><section class="footnotes"><div class="footnote-list"><ol><li><span id="fn:1" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007665361">jsonp 的原理与实现</a>
-<a href="#fnref:1" rev="footnote" class="footnote-backref"> ↩</a></span></span></li><li><span id="fn:2" class="footnote-text"><span><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903767226351623">九种跨域方式实现原理 (完整版)</a>
-<a href="#fnref:2" rev="footnote" class="footnote-backref"> ↩</a></span></span></li></ol></div></section>
               
             </div>
             <hr/>
@@ -320,20 +296,6 @@
   <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">前端开发</a>
   
   
-    <span>></span>
-    
-  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E7%BD%91%E7%BB%9C/" class="category-chain-item">前端网络</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E7%BD%91%E7%BB%9C/%E8%B7%A8%E5%9F%9F/" class="category-chain-item">跨域</a>
-  
-  
-
-  
-
-  
 
       </span>
     
@@ -346,7 +308,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+        <a href="/tags/JavaScript/">#JavaScript</a>
       
     </div>
   
@@ -358,8 +320,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>跨域问题</div>
-      <div>http://example.com/2022/06/09/跨域问题/</div>
+      <div>手写Promise</div>
+      <div>http://example.com/2022/06/13/手写Promise/</div>
     </div>
     <div class="license-meta">
       
@@ -371,7 +333,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月9日</div>
+          <div>2022年6月13日</div>
         </div>
       
       
@@ -396,29 +358,6 @@
 
 
 
-              
-                <div class="post-prevnext my-3">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2022/06/13/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" title="防抖和节流">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">防抖和节流</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2022/06/08/%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="如何解决跨域问题">
-                        <span class="hidden-mobile">如何解决跨域问题</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
               
             </div>
 
