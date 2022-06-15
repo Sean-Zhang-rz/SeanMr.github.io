@@ -31,6 +31,35 @@
   
   
   <entry>
+    <title>手写Promise</title>
+    <link href="/2022/06/13/%E6%89%8B%E5%86%99Promise/"/>
+    <url>/2022/06/13/%E6%89%8B%E5%86%99Promise/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>作者：Sean</p><p>前言：手写具备 A+规范的 Promise</p><p>高级前端必会面试题</p></blockquote><h2 id="1、搭个框架"><a href="#1、搭个框架" class="headerlink" title="1、搭个框架"></a>1、搭个框架</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">_Promise</span> &#123;<br>  <span class="hljs-attr">state</span>: <span class="hljs-string">&#x27;pending&#x27;</span> | <span class="hljs-string">&#x27;fullfilled&#x27;</span> | <span class="hljs-string">&#x27;rejected&#x27;</span> = <span class="hljs-string">&#x27;pending&#x27;</span>;<br>  <span class="hljs-attr">handler</span>: &#123;<br>    <span class="hljs-attr">onResolve</span>: <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> <span class="hljs-built_in">void</span>;<br>    <span class="hljs-attr">onReject</span>: <span class="hljs-function">(<span class="hljs-params">rej</span>) =&gt;</span> <span class="hljs-built_in">void</span>;<br>  &#125; = &#123;<br>    <span class="hljs-attr">onResolve</span>: <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;&#125;,<br>    <span class="hljs-attr">onReject</span>: <span class="hljs-function">(<span class="hljs-params">rej</span>) =&gt;</span> &#123;&#125;,<br>  &#125;;<br><br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">fn</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fn !== <span class="hljs-string">&#x27;function&#x27;</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">&#x27;Promise必须传入一个函数&#x27;</span>);<br>    <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">resolve</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">reject</span>);<br>  &#125;<br><br>  <span class="hljs-title function_">resolve</span>(<span class="hljs-params">result</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> !== <span class="hljs-string">&#x27;pending&#x27;</span>) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = <span class="hljs-string">&#x27;fullfilled&#x27;</span>;<br>    <span class="hljs-title function_">queueMicrotask</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">handler</span>.<span class="hljs-property">onResolve</span>) <span class="hljs-variable language_">this</span>.<span class="hljs-property">handler</span>.<span class="hljs-title function_">onResolve</span>(result);<br>    &#125;);<br>  &#125;<br>  <span class="hljs-title function_">reject</span>(<span class="hljs-params">reason</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> !== <span class="hljs-string">&#x27;pending&#x27;</span>) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = <span class="hljs-string">&#x27;rejected&#x27;</span>;<br>    <span class="hljs-title function_">queueMicrotask</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">handler</span>.<span class="hljs-property">onReject</span>) <span class="hljs-variable language_">this</span>.<span class="hljs-property">handler</span>.<span class="hljs-title function_">onReject</span>(reason);<br>    &#125;);<br>  &#125;<br>  <span class="hljs-title function_">then</span>(<span class="hljs-params">onResolve?, onReject?</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onResolve === <span class="hljs-string">&#x27;function&#x27;</span>) <span class="hljs-variable language_">this</span>.<span class="hljs-property">handler</span>.<span class="hljs-property">onResolve</span> = onResolve;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onReject === <span class="hljs-string">&#x27;function&#x27;</span>) <span class="hljs-variable language_">this</span>.<span class="hljs-property">handler</span>.<span class="hljs-property">onReject</span> = onReject;<br>  &#125;<br>  <span class="hljs-keyword">catch</span>(onReject?) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">then</span>(<span class="hljs-literal">null</span>, onReject);<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ul><li><strong>没有 then 链</strong></li><li>then 和 catch 里的函数不会被调用</li><li>函数里面抛错，then 的 reject 捕获不了</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端开发</category>
+      
+      <category>前端基础</category>
+      
+      <category>JavaScript</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>防抖和节流</title>
     <link href="/2022/06/13/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/"/>
     <url>/2022/06/13/%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/</url>
