@@ -19,12 +19,12 @@
     <meta name="description" content="作者：Sean 前言：手写具备 A+规范的 Promise 高级前端必会面试题  1、搭个框架12345678910111213141516171819202122232425262728293031323334353637383940interface handlerProps &amp;#123;  onResolve: (res) &#x3D;&gt; void;  onReject: (rej) &#x3D;&amp;gt">
 <meta property="og:type" content="article">
 <meta property="og:title" content="手写Promise">
-<meta property="og:url" content="http://example.com/2022/06/13/%E6%89%8B%E5%86%99Promise/index.html">
+<meta property="og:url" content="http://example.com/2022/06/18/%E6%89%8B%E5%86%99Promise/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="作者：Sean 前言：手写具备 A+规范的 Promise 高级前端必会面试题  1、搭个框架12345678910111213141516171819202122232425262728293031323334353637383940interface handlerProps &amp;#123;  onResolve: (res) &#x3D;&gt; void;  onReject: (rej) &#x3D;&amp;gt">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-13T15:29:12.000Z">
-<meta property="article:modified_time" content="2022-06-16T00:31:49.402Z">
+<meta property="article:published_time" content="2022-06-18T14:51:12.000Z">
+<meta property="article:modified_time" content="2022-06-18T14:51:17.631Z">
 <meta property="article:author" content="Sean Zhang">
 <meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary_large_image">
@@ -205,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-13 23:29" pubdate>
-          2022年6月13日 晚上
+        <time datetime="2022-06-18 22:51" pubdate>
+          2022年6月18日 晚上
         </time>
       </span>
     
@@ -286,7 +286,7 @@
 
 <h3 id="then-改写"><a href="#then-改写" class="headerlink" title="then 改写"></a>then 改写</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-title function_">then</span>(<span class="hljs-params">onResolve?, onReject?</span>) &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-attr">handler</span>: handlerProps = &#123;<br>    <span class="hljs-attr">onResolve</span>: <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;&#125;,<br>    <span class="hljs-attr">onReject</span>: <span class="hljs-function">(<span class="hljs-params">rej</span>) =&gt;</span> &#123;&#125;,<br>    <span class="hljs-attr">handleNext</span>: <span class="hljs-keyword">new</span> <span class="hljs-title function_">_Promise</span>(<span class="hljs-function">() =&gt;</span> &#123;&#125;),<br>  &#125;;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onResolve === <span class="hljs-string">&#x27;function&#x27;</span>) handler.<span class="hljs-property">onResolve</span> = onResolve;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> onReject === <span class="hljs-string">&#x27;function&#x27;</span>) handler.<span class="hljs-property">onReject</span> = onReject;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">callbacks</span>.<span class="hljs-title function_">push</span>(handler);<br>  <span class="hljs-keyword">return</span> handler.<span class="hljs-property">handleNext</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="resolve-和-reject-里的调用逻辑"><a href="#resolve-和-reject-里的调用逻辑" class="headerlink" title="resolve 和 reject 里的调用逻辑"></a>resolve 和 reject 里的调用逻辑</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-title function_">resolve</span>(<span class="hljs-params">result</span>) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> !== <span class="hljs-string">&#x27;pending&#x27;</span>) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = <span class="hljs-string">&#x27;fullfilled&#x27;</span>;<br>    <span class="hljs-title function_">queueMicrotask</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-variable language_">this</span>.<span class="hljs-property">callbacks</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">cb</span>) =&gt;</span> &#123;<br>        <span class="hljs-keyword">if</span> (cb.<span class="hljs-property">onResolve</span>) &#123;<br>          <span class="hljs-keyword">const</span> x = cb.<span class="hljs-title function_">onResolve</span>(result);<br>          <span class="hljs-comment">// 执行next</span><br>          cb.<span class="hljs-property">handleNext</span>.<span class="hljs-title function_">resolve</span>(x);<br>        &#125;<br>      &#125;);<br>    &#125;);<br>  &#125;<br></code></pre></td></tr></table></figure>
+<h3 id="resolve-和-reject-里的调用逻辑"><a href="#resolve-和-reject-里的调用逻辑" class="headerlink" title="resolve 和 reject 里的调用逻辑"></a>resolve 和 reject 里的调用逻辑</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-title function_">resolve</span>(<span class="hljs-params">result</span>) &#123;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> !== <span class="hljs-string">&#x27;pending&#x27;</span>) <span class="hljs-keyword">return</span>;<br>  <span class="hljs-variable language_">this</span>.<span class="hljs-property">state</span> = <span class="hljs-string">&#x27;fullfilled&#x27;</span>;<br>  <span class="hljs-title function_">queueMicrotask</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">callbacks</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">cb</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (cb.<span class="hljs-property">onResolve</span>) &#123;<br>        <span class="hljs-keyword">const</span> x = cb.<span class="hljs-title function_">onResolve</span>(result);<br>        <span class="hljs-comment">// 执行next</span><br>        cb.<span class="hljs-property">handleNext</span>.<span class="hljs-title function_">resolve</span>(x);<br>      &#125;<br>    &#125;);<br>  &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>rejct 同样需要改写</p>
 
@@ -308,6 +308,20 @@
         
   <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/" class="category-chain-item">前端开发</a>
   
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/" class="category-chain-item">前端基础</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/JavaScript/" class="category-chain-item">JavaScript</a>
+  
+  
+
+  
+
   
 
       </span>
@@ -334,7 +348,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>手写Promise</div>
-      <div>http://example.com/2022/06/13/手写Promise/</div>
+      <div>http://example.com/2022/06/18/手写Promise/</div>
     </div>
     <div class="license-meta">
       
@@ -346,7 +360,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月13日</div>
+          <div>2022年6月18日</div>
         </div>
       
       
@@ -371,6 +385,23 @@
 
 
 
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/13/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" title="如何使用hexo搭建个人博客">
+                        <span class="hidden-mobile">如何使用hexo搭建个人博客</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
               
             </div>
 
