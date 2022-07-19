@@ -275,7 +275,7 @@
 <p>前言：防抖和节流是前端开发中重要的两个概念，但是其概念与其名称一样，没有浅显易懂。防抖和节流是两个不同的功能，都用于限制用户的频繁操作和资源请求，减轻服务器的压力，是前端开发中重要的性能优化方法。下面就让我们探究一下防抖和节流吧。</p>
 </blockquote>
 <h1 id="1-防抖（debounce）"><a href="#1-防抖（debounce）" class="headerlink" title="1. 防抖（debounce）"></a>1. 防抖（debounce）</h1><h2 id="1-1-什么是防抖"><a href="#1-1-什么是防抖" class="headerlink" title="1.1 什么是防抖"></a>1.1 什么是防抖</h2><p>让我们用一个例子来认识防抖：</p>
-<p class="note note-info"><strong>需求</strong> <br/> 用户在搜索框中输入内容之后，在下拉框中显示输入内容相关的信息</p>
+<p class="note note-info"><strong>需求</strong> <br> 用户在搜索框中输入内容之后，在下拉框中显示输入内容相关的信息</p>
 
 <p>那么，很显然，这需要获取用户输入的字符，然后以该字符向服务器发送请求，服务器返回与该字符相关的信息。</p>
 <p><strong>但是，我们需要在用户每输入一个字符就发送一次请求吗？</strong>这显然是不合理的，如果用户数量大，那么服务器将不堪重负。</p>
@@ -305,7 +305,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">debounce</span>(<span class="hljs-params">func, delay, immediate</span>) &#123;<br>  <span class="hljs-keyword">let</span> timer;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">...args</span>) &#123;<br>    <span class="hljs-keyword">let</span> context = <span class="hljs-variable language_">this</span>;<br>    timer &amp;&amp; <span class="hljs-built_in">clearTimeout</span>(timer);<br>    <span class="hljs-keyword">if</span> (immediate) &#123;<br>      <span class="hljs-keyword">let</span> callNow = !timer;<br>      timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        timer = <span class="hljs-literal">null</span>;<br>      &#125;, delay);<br>      callNow &amp;&amp; func.<span class="hljs-title function_">call</span>(context, ...args);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      timer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        func.<span class="hljs-title function_">call</span>(context, ...args);<br>      &#125;, delay);<br>    &#125;<br>  &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h1 id="2-节流（throttle）"><a href="#2-节流（throttle）" class="headerlink" title="2. 节流（throttle）"></a>2. 节流（throttle）</h1><h2 id="2-1-什么是节流"><a href="#2-1-什么是节流" class="headerlink" title="2.1 什么是节流"></a>2.1 什么是节流</h2><p>理解了防抖，拿什么是节流呢？还是用一个例子：</p>
-<p class="note note-info"><strong>需求</strong> <br/> 用户使用手机验证码登录时，请求一次验证码之后要60s之后才能再次点击请求，考虑到一些需求，不能将按钮直接设置为disabled</p>
+<p class="note note-info"><strong>需求</strong> <br> 用户使用手机验证码登录时，请求一次验证码之后要60s之后才能再次点击请求，考虑到一些需求，不能将按钮直接设置为disabled</p>
 
 <p>同理，我们还是可以使用定时器来解决这个需求，<strong>即定时器只要在计时，这个函数就不会进入执行</strong>。不管用户在如何点击按钮也不会触发事件。这就像是游戏中技能的“冷却时间”，一个技能在释放完毕之后，要经过一段时间才能再次释放。</p>
 <h2 id="2-2-如何实现节流"><a href="#2-2-如何实现节流" class="headerlink" title="2.2 如何实现节流"></a>2.2 如何实现节流</h2><p>直接上代码：</p>
