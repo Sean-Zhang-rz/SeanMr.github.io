@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>TCP三次握手与四次挥手</title>
+    <link href="/2022/07/21/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/"/>
+    <url>/2022/07/21/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>作者：Sean</p><p>前言：经典面试题，TCP 建立连接需要经过三次握手，断开连接则需要四次挥手</p><p>前端必会面试题</p></blockquote><h2 id="一些术语"><a href="#一些术语" class="headerlink" title="一些术语"></a>一些术语</h2><ul><li><code>SYN(synchronous)</code> - 用于初始化一个连接的序列号，建立联机</li><li><code>ack(acknowledgement)</code>- 确认号码</li><li><code>seq(sequence)</code> - 顺序号码</li><li><code>ISN(Initial Sequence Number)</code> - 初始序列号</li><li><code>ACK</code> - 确认，使得确认号有效（握手用）</li><li><code>FIN(finish)</code> - 该报文的发送方已经结束向对方发送数据</li><li><code>MSL</code> - 最长报文寿命，一个 MSL 是 2 分钟</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端开发</category>
+      
+      <category>计算机基础</category>
+      
+      <category>浏览器</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>浏览器</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>输入url渲染以及渲染原理</title>
     <link href="/2022/07/18/%E8%BE%93%E5%85%A5url%E6%B8%B2%E6%9F%93%E4%BB%A5%E5%8F%8A%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86/"/>
     <url>/2022/07/18/%E8%BE%93%E5%85%A5url%E6%B8%B2%E6%9F%93%E4%BB%A5%E5%8F%8A%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86/</url>

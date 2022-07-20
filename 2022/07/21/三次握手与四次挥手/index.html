@@ -16,25 +16,22 @@
   <meta name="author" content="Sean Zhang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="作者：Sean 前言：经典面试题，输入一个 url 到浏览器地址栏中直到页面有内容展示过程中发生了什么？ 高级前端必会面试题  URL 的组成URL &#x3D; 协议 + 主机 + 端口 + 路径 + 查询参数 + 锚点 https:&#x2F;&#x2F;seanmr.github.io:8080&#x2F;20210226&#x2F;index.html?name&#x3D;sean#front   解析域名通过 DNS 解析域名的实际">
+    <meta name="description" content="作者：Sean 前言：经典面试题，TCP 建立连接需要经过三次握手，断开连接则需要四次挥手 前端必会面试题  一些术语 SYN(synchronous) - 用于初始化一个连接的序列号，建立联机 ack(acknowledgement)- 确认号码 seq(sequence) - 顺序号码 ISN(Initial Sequence Number) - 初始序列号 ACK - 确认，使得确认号有效">
 <meta property="og:type" content="article">
-<meta property="og:title" content="输入url渲染以及渲染原理">
-<meta property="og:url" content="http://example.com/2022/07/18/%E8%BE%93%E5%85%A5url%E6%B8%B2%E6%9F%93%E4%BB%A5%E5%8F%8A%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:title" content="TCP三次握手与四次挥手">
+<meta property="og:url" content="http://example.com/2022/07/21/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="作者：Sean 前言：经典面试题，输入一个 url 到浏览器地址栏中直到页面有内容展示过程中发生了什么？ 高级前端必会面试题  URL 的组成URL &#x3D; 协议 + 主机 + 端口 + 路径 + 查询参数 + 锚点 https:&#x2F;&#x2F;seanmr.github.io:8080&#x2F;20210226&#x2F;index.html?name&#x3D;sean#front   解析域名通过 DNS 解析域名的实际">
+<meta property="og:description" content="作者：Sean 前言：经典面试题，TCP 建立连接需要经过三次握手，断开连接则需要四次挥手 前端必会面试题  一些术语 SYN(synchronous) - 用于初始化一个连接的序列号，建立联机 ack(acknowledgement)- 确认号码 seq(sequence) - 顺序号码 ISN(Initial Sequence Number) - 初始序列号 ACK - 确认，使得确认号有效">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/url.png">
-<meta property="og:image" content="http://example.com/images/dns.png">
-<meta property="article:published_time" content="2022-07-18T00:13:47.000Z">
-<meta property="article:modified_time" content="2022-07-20T00:32:24.349Z">
+<meta property="article:published_time" content="2022-07-20T23:18:13.000Z">
+<meta property="article:modified_time" content="2022-07-20T23:46:57.314Z">
 <meta property="article:author" content="Sean Zhang">
 <meta property="article:tag" content="浏览器">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/images/url.png">
   
   
   
-  <title>输入url渲染以及渲染原理 - Hexo</title>
+  <title>TCP三次握手与四次挥手 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +194,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="输入url渲染以及渲染原理"></span>
+            <span id="subtitle" data-typed-text="TCP三次握手与四次挥手"></span>
           
         </div>
 
@@ -208,8 +205,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-18 08:13" pubdate>
-          2022年7月18日 早上
+        <time datetime="2022-07-21 07:18" pubdate>
+          2022年7月21日 早上
         </time>
       </span>
     
@@ -220,7 +217,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.4k 字
+          233 字
         
       </span>
     
@@ -231,7 +228,7 @@
         
         
         
-          13 分钟
+          2 分钟
         
       </span>
     
@@ -269,65 +266,24 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">输入url渲染以及渲染原理</h1>
+            <h1 style="display: none">TCP三次握手与四次挥手</h1>
             
             <div class="markdown-body">
               
               <blockquote>
 <p>作者：Sean</p>
-<p>前言：经典面试题，输入一个 url 到浏览器地址栏中直到页面有内容展示过程中发生了什么？</p>
-<p>高级前端必会面试题</p>
+<p>前言：经典面试题，TCP 建立连接需要经过三次握手，断开连接则需要四次挥手</p>
+<p>前端必会面试题</p>
 </blockquote>
-<h2 id="URL-的组成"><a href="#URL-的组成" class="headerlink" title="URL 的组成"></a>URL 的组成</h2><p>URL &#x3D; 协议 + 主机 + 端口 + 路径 + 查询参数 + 锚点</p>
-<p>https://seanmr.github.io:8080/20210226/index.html?name=sean#front</p>
-
-<p><img src="/../images/url.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h2><p>通过 DNS 解析域名的实际 IP 地址</p>
-<ul>
-<li>递归查找：浏览器缓存找对应 ip 地址 —&gt; os 系统（例如 windows 系统的<code>host</code>文件）的 DNS 缓存找 —&gt; 路由器的 DNS 缓存找 —&gt; ISP（运营商）的 DNS 缓存找。如果都没有找到：</li>
-<li>迭代查找：根域名服务器 —&gt; com 顶级域名服务器 —&gt; 二级域名服务器</li>
+<h2 id="一些术语"><a href="#一些术语" class="headerlink" title="一些术语"></a>一些术语</h2><ul>
+<li><code>SYN(synchronous)</code> - 用于初始化一个连接的序列号，建立联机</li>
+<li><code>ack(acknowledgement)</code>- 确认号码</li>
+<li><code>seq(sequence)</code> - 顺序号码</li>
+<li><code>ISN(Initial Sequence Number)</code> - 初始序列号</li>
+<li><code>ACK</code> - 确认，使得确认号有效（握手用）</li>
+<li><code>FIN(finish)</code> - 该报文的发送方已经结束向对方发送数据</li>
+<li><code>MSL</code> - 最长报文寿命，一个 MSL 是 2 分钟</li>
 </ul>
-<p><img src="/../images/dns.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="检查缓存"><a href="#检查缓存" class="headerlink" title="检查缓存"></a>检查缓存</h2><ul>
-<li>通过<code>Cache-Control</code>和<code>Expires</code>来检查是否命中强缓存，命中则直接取本地磁盘的 html，不需要发送请求</li>
-<li>如果没有命中强缓存，则会向服务器发起请求（先进行下一步的 TCP 连接），服务器通过<code>ETag</code>和<code>Last-Modify</code>来取服务器确认返回的响应是否被更改（协商缓存），若无更改则返回状态码（304），浏览器取本地缓存</li>
-<li>若强缓存和协商缓存都没有命中则发送网络请求</li>
-</ul>
-<h2 id="建立-TCP-连接"><a href="#建立-TCP-连接" class="headerlink" title="建立 TCP 连接"></a>建立 TCP 连接</h2><p>三次握手</p>
-<h3 id="TSL-加密"><a href="#TSL-加密" class="headerlink" title="TSL 加密"></a>TSL 加密</h3><p>https 还需要经过 TSL 或者 SSL 加密，四次握手</p>
-<h2 id="浏览器发送请求"><a href="#浏览器发送请求" class="headerlink" title="浏览器发送请求"></a>浏览器发送请求</h2><p>待补充</p>
-<h2 id="服务器响应"><a href="#服务器响应" class="headerlink" title="服务器响应"></a>服务器响应</h2><ul>
-<li>服务器可能是<code>server</code>也可能是<code>cdn</code> （内容分发网络，用来加快传输速度，主要用来存储静态文件）</li>
-<li>服务器上可能会通过<code>nginx</code>等设置静态资源代理，将 url 对应的 html 等静态资源返回。nginx 是常用的反向代理服务器</li>
-<li>这一阶段可能会发生服务端渲染，如果网站是博客或者其他需要 seo 友好的页面时。常见方案有：<code>ejs, art-template</code>。基于框架的<code>nuxt.js</code>及<code>next.js</code></li>
-</ul>
-<h2 id="浏览器解析与渲染"><a href="#浏览器解析与渲染" class="headerlink" title="浏览器解析与渲染"></a>浏览器解析与渲染</h2><h3 id="解析-html-与-css"><a href="#解析-html-与-css" class="headerlink" title="解析 html 与 css"></a>解析 html 与 css</h3><p><code>html</code>解析</p>
-<ul>
-<li>浏览器首先将接受到的字节数据（也就是 0 和 1）转换成字符串（也就是我们写的代码），</li>
-<li>然后浏览器会将这些字符串通过词法分析（标记化 tokenization）转换成标记（token，构成代码的最小单位）。例如<code>&lt;a&gt;</code>就会被打上一个标记</li>
-<li>标记化结束后，浏览器会将这些标记转为<code>Node</code>，这些<code>Node</code>根据不同<code>Node</code>之间的联系构建一棵<code>DOM</code>树</li>
-</ul>
-<p><code>css</code>解析</p>
-<ul>
-<li>解析过程与<code>html</code>解析相似，最终递归出<code>CSSOM</code>树</li>
-<li>避免写过于具体的 css 选择器，例如<code>div &gt; a &gt; span</code>，浏览器会从右向左查找，先找到所有 span 标签所在位置，再向上查找有没有 a 标签，符合条件再向上查找有无 div 标签，最终再给完全符合条件的标记设置样式。这样的递归过于复杂</li>
-</ul>
-<p>渲染阻塞</p>
-<ul>
-<li>HTML 和 CSS 解析过程中一定会阻塞渲染，所以要降低一开始渲染的文件的大小，扁平层级，优化选择器。</li>
-<li>JS 解析会阻塞 DOM 构建和渲染，具体表现为解析到<code>script</code>标签，暂停构建<code>DOM</code>，开始下载 JS 文件，并解析执行。再从暂停的地方重新开始构建<code>DOM</code><ul>
-<li>应当将 script 标签写到 body 的最下方，等待 DOM 解析构建渲染完成，再解析执行 JS 脚本</li>
-<li>script 加<code>defer</code>属性，表示 JS 脚本会并行下载，等待 HTML 解析完成后再执行</li>
-<li>script 加<code>async</code>属性，表示这个 JS 脚本没有任何依赖，它的解析和执行是不会阻塞渲染的</li>
-</ul>
-</li>
-</ul>
-<h3 id="回流与重绘"><a href="#回流与重绘" class="headerlink" title="回流与重绘"></a>回流与重绘</h3><p>生成渲染树</p>
-<ul>
-<li>渲染树只会包含需要渲染的节点以及这些节点的信息，<code>display: none</code>的节点则不被包含在渲染树中</li>
-<li>渲染树生成后，浏览器会根据渲染树进行布局，这个过程叫做<code>回流</code>，在屏幕上呈现图层</li>
-</ul>
-<h2 id="断开连接"><a href="#断开连接" class="headerlink" title="断开连接"></a>断开连接</h2><p>四次挥手</p>
 
               
             </div>
@@ -386,8 +342,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>输入url渲染以及渲染原理</div>
-      <div>http://example.com/2022/07/18/输入url渲染以及渲染原理/</div>
+      <div>TCP三次握手与四次挥手</div>
+      <div>http://example.com/2022/07/21/三次握手与四次挥手/</div>
     </div>
     <div class="license-meta">
       
@@ -399,7 +355,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月18日</div>
+          <div>2022年7月21日</div>
         </div>
       
       
@@ -429,18 +385,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/21/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E4%B8%8E%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/" title="TCP三次握手与四次挥手">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">TCP三次握手与四次挥手</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/07/JavaScript%E7%B1%BB%E5%9E%8B%E5%92%8C%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" title="JavaScript类型和类型转换">
-                        <span class="hidden-mobile">JavaScript类型和类型转换</span>
+                      <a href="/2022/07/18/%E8%BE%93%E5%85%A5url%E6%B8%B2%E6%9F%93%E4%BB%A5%E5%8F%8A%E6%B8%B2%E6%9F%93%E5%8E%9F%E7%90%86/" title="输入url渲染以及渲染原理">
+                        <span class="hidden-mobile">输入url渲染以及渲染原理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
