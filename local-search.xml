@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>TS保姆教程————Ts入门及基础类型</title>
+    <link href="/2022/09/22/TS%E4%BF%9D%E5%A7%86%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/"/>
+    <url>/2022/09/22/TS%E4%BF%9D%E5%A7%86%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>作者：Sean</p><p>前言：TypeScript，简称 ts，等于 type + JavaScript，有了 type 的 JavaScript 就像时刻有绿码在手的你（大误）<br>ts 可以保证在编译时就检查代码中的类型错误和问题，大大减少了空指针异常等问题，而 JavaScript 只能在运行时发现错误<br>2022 年了，还不会 ts 你就落伍了！</p></blockquote><h2 id="一、接触-TypeScript"><a href="#一、接触-TypeScript" class="headerlink" title="一、接触 TypeScript"></a>一、接触 TypeScript</h2><h3 id="获取-TypeScript"><a href="#获取-TypeScript" class="headerlink" title="获取 TypeScript"></a>获取 TypeScript</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安装ts</span><br>npm install -g typescript<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">验证ts</span><br>tsc -v<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">编译ts文件，生成对应js文件</span><br>tsc xxx.ts<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">在node中运行ts文件</span><br>node -r ts-node/register xxx.ts<br></code></pre></td></tr></table></figure><h2 id="二、TypeScript-类型"><a href="#二、TypeScript-类型" class="headerlink" title="二、TypeScript 类型"></a>二、TypeScript 类型</h2><h3 id="2-1-JavaScript-er-熟知的类型"><a href="#2-1-JavaScript-er-熟知的类型" class="headerlink" title="2.1 JavaScript er 熟知的类型"></a>2.1 JavaScript er 熟知的类型</h3><p>string, number, boolean, null, undefined, Object, Array, Function, Date……</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> <span class="hljs-attr">str</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;a&#x27;</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">n</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">1</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">flag</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">nil</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">undef</span>: <span class="hljs-attr">undefined</span>: <span class="hljs-literal">undefined</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">date</span>: <span class="hljs-title class_">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()<br><span class="hljs-comment">// 可以这么定义，但没人这么用</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>: <span class="hljs-title class_">Object</span> = &#123;&#125;<br><span class="hljs-keyword">const</span> <span class="hljs-attr">arr</span>: <span class="hljs-title class_">Array</span> = []<br><span class="hljs-keyword">const</span> <span class="hljs-attr">fn</span>: <span class="hljs-title class_">Function</span> = <span class="hljs-function">() =&gt;</span> &#123;&#125;<br></code></pre></td></tr></table></figure><p>这些类型对写惯 js 的程序员可能会觉得很熟悉，没有多少门槛，那 ts 只会止步于此吗？</p><h3 id="2-2-TypeScript-中新增的类型"><a href="#2-2-TypeScript-中新增的类型" class="headerlink" title="2.2 TypeScript 中新增的类型"></a>2.2 TypeScript 中新增的类型</h3><p>never, unknown, tuple, void, any, enum</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端开发</category>
+      
+      <category>前端基础</category>
+      
+      <category>TypeScript</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>JavaScript</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>前端算法救赎———面试必会二分查找</title>
     <link href="/2022/09/06/%E5%89%8D%E7%AB%AF%E7%AE%97%E6%B3%95%E6%95%91%E8%B5%8E%E2%80%94%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     <url>/2022/09/06/%E5%89%8D%E7%AB%AF%E7%AE%97%E6%B3%95%E6%95%91%E8%B5%8E%E2%80%94%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</url>
