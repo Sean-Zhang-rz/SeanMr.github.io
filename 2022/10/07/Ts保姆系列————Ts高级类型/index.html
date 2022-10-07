@@ -16,22 +16,27 @@
   <meta name="author" content="Sean Zhang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="作者：Sean 前言：TypeScript，简称 ts，等于 type + JavaScript，有了 type 的 JavaScript 就像时刻有绿码在手的你（大误）ts 可以保证在编译时就检查代码中的类型错误和问题，大大减少了空指针异常等问题，而 JavaScript 只能在运行时发现错误2022 年了，还不会 ts 你就落伍了！  一、接触 TypeScript获取 TypeScript">
+    <meta name="description" content="作者：Sean 前言：TypeScript，简称 ts，等于 type + JavaScript，有了 type 的 JavaScript 就像时刻有绿码在手的你（大误）ts 可以保证在编译时就检查代码中的类型错误和问题，大大减少了空指针异常等问题，而 JavaScript 只能在运行时发现错误学习如何定义类型、联合类型、交叉类型、类型收紧等。  一、type 和 interface上一节中，我">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TS保姆教程————Ts入门及基础类型">
-<meta property="og:url" content="http://example.com/2022/09/22/TS%E4%BF%9D%E5%A7%86%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:title" content="Ts保姆系列————Ts高级类型">
+<meta property="og:url" content="http://example.com/2022/10/07/Ts%E4%BF%9D%E5%A7%86%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E2%80%94%E2%80%94Ts%E9%AB%98%E7%BA%A7%E7%B1%BB%E5%9E%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="作者：Sean 前言：TypeScript，简称 ts，等于 type + JavaScript，有了 type 的 JavaScript 就像时刻有绿码在手的你（大误）ts 可以保证在编译时就检查代码中的类型错误和问题，大大减少了空指针异常等问题，而 JavaScript 只能在运行时发现错误2022 年了，还不会 ts 你就落伍了！  一、接触 TypeScript获取 TypeScript">
+<meta property="og:description" content="作者：Sean 前言：TypeScript，简称 ts，等于 type + JavaScript，有了 type 的 JavaScript 就像时刻有绿码在手的你（大误）ts 可以保证在编译时就检查代码中的类型错误和问题，大大减少了空指针异常等问题，而 JavaScript 只能在运行时发现错误学习如何定义类型、联合类型、交叉类型、类型收紧等。  一、type 和 interface上一节中，我">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-22T13:40:43.000Z">
-<meta property="article:modified_time" content="2022-10-07T01:48:56.773Z">
+<meta property="og:image" content="http://example.com/images/type.jpg">
+<meta property="og:image" content="http://example.com/images/type2.jpg">
+<meta property="og:image" content="http://example.com/images/interface.jpg">
+<meta property="og:image" content="http://example.com/images/interface2.jpg">
+<meta property="article:published_time" content="2022-10-07T01:48:31.000Z">
+<meta property="article:modified_time" content="2022-10-07T07:43:19.502Z">
 <meta property="article:author" content="Sean Zhang">
 <meta property="article:tag" content="TypeScript">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/images/type.jpg">
   
   
   
-  <title>TS保姆教程————Ts入门及基础类型 - Hexo</title>
+  <title>Ts保姆系列————Ts高级类型 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -194,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="TS保姆教程————Ts入门及基础类型"></span>
+            <span id="subtitle" data-typed-text="Ts保姆系列————Ts高级类型"></span>
           
         </div>
 
@@ -205,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-22 21:40" pubdate>
-          2022年9月22日 晚上
+        <time datetime="2022-10-07 09:48" pubdate>
+          2022年10月7日 上午
         </time>
       </span>
     
@@ -217,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2.7k 字
         
       </span>
     
@@ -228,7 +233,7 @@
         
         
         
-          16 分钟
+          23 分钟
         
       </span>
     
@@ -266,41 +271,71 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">TS保姆教程————Ts入门及基础类型</h1>
+            <h1 style="display: none">Ts保姆系列————Ts高级类型</h1>
             
             <div class="markdown-body">
               
               <blockquote>
 <p>作者：Sean</p>
-<p>前言：TypeScript，简称 ts，等于 type + JavaScript，有了 type 的 JavaScript 就像时刻有绿码在手的你（大误）<br>ts 可以保证在编译时就检查代码中的类型错误和问题，大大减少了空指针异常等问题，而 JavaScript 只能在运行时发现错误<br>2022 年了，还不会 ts 你就落伍了！</p>
+<p>前言：TypeScript，简称 ts，等于 type + JavaScript，有了 type 的 JavaScript 就像时刻有绿码在手的你（大误）<br>ts 可以保证在编译时就检查代码中的类型错误和问题，大大减少了空指针异常等问题，而 JavaScript 只能在运行时发现错误<br>学习如何定义类型、联合类型、交叉类型、类型收紧等。</p>
 </blockquote>
-<h2 id="一、接触-TypeScript"><a href="#一、接触-TypeScript" class="headerlink" title="一、接触 TypeScript"></a>一、接触 TypeScript</h2><h3 id="获取-TypeScript"><a href="#获取-TypeScript" class="headerlink" title="获取 TypeScript"></a>获取 TypeScript</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">安装ts</span><br>npm install -g typescript<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">验证ts</span><br>tsc -v<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">编译ts文件，生成对应js文件</span><br>tsc xxx.ts<br></code></pre></td></tr></table></figure>
+<h2 id="一、type-和-interface"><a href="#一、type-和-interface" class="headerlink" title="一、type 和 interface"></a>一、type 和 interface</h2><p>上一节中，我们学习了如何在声明一个变量时定义它的类型，那如果我只想“定义”一种类型，或者当情况相当复杂时，使用一个“变量”保存下一个复杂的类型可不可以呢？</p>
+<p>当然可以，这时候就要使用到<code>type</code> 和 <code>interface</code></p>
+<h3 id="type"><a href="#type" class="headerlink" title="type"></a>type</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">type</span> <span class="hljs-title class_">PropsA</span> = <span class="hljs-built_in">string</span>;<br><span class="hljs-keyword">type</span> <span class="hljs-title class_">PropsB</span> = <span class="hljs-string">&#x27;b&#x27;</span>;<br></code></pre></td></tr></table></figure>
 
-<h2 id="二、TypeScript-类型"><a href="#二、TypeScript-类型" class="headerlink" title="二、TypeScript 类型"></a>二、TypeScript 类型</h2><h3 id="2-1-JavaScript-er-熟知的类型"><a href="#2-1-JavaScript-er-熟知的类型" class="headerlink" title="2.1 JavaScript er 熟知的类型"></a>2.1 JavaScript er 熟知的类型</h3><p>string, number, boolean, null, undefined, Object, Array, Function, Date……</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">const</span> <span class="hljs-attr">str</span>: <span class="hljs-built_in">string</span> = <span class="hljs-string">&#x27;a&#x27;</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">n</span>: <span class="hljs-built_in">number</span> = <span class="hljs-number">1</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">flag</span>: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">nil</span>: <span class="hljs-literal">null</span> = <span class="hljs-literal">null</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">undef</span>: <span class="hljs-attr">undefined</span>: <span class="hljs-literal">undefined</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">date</span>: <span class="hljs-title class_">Date</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>()<br><span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>: &#123; <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> &#125; = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;jack&#x27;</span> &#125;<br><span class="hljs-keyword">const</span> <span class="hljs-attr">arr</span>: <span class="hljs-built_in">string</span>[] = [<span class="hljs-string">&#x27;ok&#x27;</span>, <span class="hljs-string">&#x27;success&#x27;</span>, <span class="hljs-string">&#x27;real&#x27;</span>]<br><span class="hljs-keyword">const</span> <span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">a: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">string</span> = <span class="hljs-function">(<span class="hljs-params">a: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">$&#123;x&#125;</span> hhhh`</span><br></code></pre></td></tr></table></figure>
+<p>如上面所展示，Props 类型就是一种字符串类型, PropsB 是<code>&#39;b&#39;</code>类型，它定义的变量的值只能为<code>&#39;b&#39;</code>。</p>
+<p>emmmm….你这有点像那啥放气啊，为啥我不直接使用<code>string</code>和<code>&#39;b&#39;</code>呢？</p>
+<p>上面说了，也会存在情况比较复杂的场景需要定义一个别名代指，这里还没说到交叉类型和联合类型就先不展开了</p>
+<p>这里要特别注意，type 其实并非定义了一种新类型，而是类型<strong>别名</strong>，即<strong>代指</strong>，PropsA 并不是一种新类型，它只是指向了字符串类型。</p>
+<h3 id="interface"><a href="#interface" class="headerlink" title="interface"></a>interface</h3><p>接口？有点奇怪，我们暂且记下他叫声明接口，或者直接叫 <code>interface</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Props</span> &#123;<br>  <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>这些类型对写惯 js 的程序员可能会觉得很熟悉，没有多少门槛，那 ts 只会止步于此吗？</p>
-<h3 id="2-2-TypeScript-中新增的类型"><a href="#2-2-TypeScript-中新增的类型" class="headerlink" title="2.2 TypeScript 中新增的类型"></a>2.2 TypeScript 中新增的类型</h3><p>tuple, never, unknown, any, enum</p>
-<h4 id="tuple-元祖"><a href="#tuple-元祖" class="headerlink" title="tuple 元祖"></a>tuple 元祖</h4><p><code>const tup: [string, number] = [&#39;ok&#39;, 2]</code></p>
-<p><code>[string, number]</code> 代表的就是一个二元组，指的是第一个元素是字符串类型，第二个元素是数字类型的数组，有且只能有两个元素。以此类推，还有三元组，四元组，n 元祖……</p>
-<h4 id="never"><a href="#never" class="headerlink" title="never"></a>never</h4><p><code>never</code>类型正如字面意思，永远无法触达的类型，在实际使用中，一个变量如果是 never 类型，则它无法做任何事。后面介绍<em>交叉类型</em>时会再次回顾这个类型。<br>如果无法使用，那<code>never</code>不是没有用处吗？<br>当然不是，在做各种<em>类型体操</em>时，<code>never</code>会起到很大的作用，这一点以后会再次介绍。</p>
-<h4 id="enum-枚举"><a href="#enum-枚举" class="headerlink" title="enum 枚举"></a>enum 枚举</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">enum</span> <span class="hljs-title class_">Staus</span> &#123;<br>  todo = <span class="hljs-number">0</span>,<br>  doing,<br>  done,<br>&#125;<br><span class="hljs-keyword">let</span> <span class="hljs-attr">status</span>: <span class="hljs-title class_">Status</span> = <span class="hljs-number">0</span>;<br>status = <span class="hljs-title class_">Status</span>.<span class="hljs-property">doing</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(status); <span class="hljs-comment">// 1</span><br></code></pre></td></tr></table></figure>
+<p>这咋还有个括号？里面这有点像键值对啊？</p>
+<p>没错，interface 只能声明对象类型，并且它可以像 class 一样去继承其他 interface 的类型，是一种面向对象的思想。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">PropsB</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Props</span> &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;<br>&#125;<br><span class="hljs-keyword">const</span> <span class="hljs-attr">obj</span>: <span class="hljs-title class_">PropsB</span> = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;sean&#x27;</span>,<br>  <span class="hljs-attr">age</span>: <span class="hljs-number">18</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
 
-<p>Status 实际表达的是一个<code>&#123; todo: 0, doing: 1, done: 2 &#125;</code>的枚举<br><code>enum</code>的使用场景都有哪些呢？</p>
+<h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3><ol>
+<li><code>interface</code> 只描述对象，<code>type</code> 则描述所有数据</li>
+<li><code>interface</code> 是类型声明（实际存在的类型），<code>type</code> 只是类型别名（实际不存在）</li>
+<li><code>type</code> 不能重新赋值，方便快速计算，不易扩展。<code>interface</code> 方便扩展</li>
+<li>遇到冲突时，<code>interface</code> 直接报错，<code>type</code> 会把类型赋成 <code>never</code></li>
+</ol>
+<p>前面两点很好理解，三四点是怎么回事呢？<br>直接上代码<br><img src="/../images/type.jpg" srcset="/img/loading.gif" lazyload><br><img src="/../images/type2.jpg" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">type</span> A = <span class="hljs-built_in">string</span>;<br><span class="hljs-keyword">type</span> A = <span class="hljs-built_in">number</span>; <span class="hljs-comment">// 报错了</span><br><span class="hljs-keyword">type</span> C = <span class="hljs-built_in">string</span> &amp; <span class="hljs-built_in">number</span>; <span class="hljs-comment">// never</span><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;<br>&#125;<br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// 报错了</span><br>&#125;<br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Person</span> &#123;<br>  <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;<br>&#125;<br><span class="hljs-comment">// 没有报错</span><br><span class="hljs-keyword">const</span> <span class="hljs-attr">a</span>: <span class="hljs-title class_">Person</span> = &#123;<br>  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;sean&#x27;</span>,<br>  <span class="hljs-attr">age</span>: <span class="hljs-number">1</span>,<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/../images/interface.jpg" srcset="/img/loading.gif" lazyload><br><img src="/../images/interface2.jpg" srcset="/img/loading.gif" lazyload><br>那这有什么用呢？当我们开发了对外开放的库或者包，尽量使用 interface，别人在使用的时候，就可以扩展我们定义的属性了。我们可以在项目里新建一个以.d.ts 结尾的文件，引入要扩展的类型，进行扩展</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> X <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./xx&#x27;</span>;<br><br><span class="hljs-keyword">declare</span> <span class="hljs-variable language_">module</span> <span class="hljs-string">&#x27;xxx&#x27;</span> &#123;<br>  <span class="hljs-comment">// 导出新的X类型</span><br>  <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> X &#123;<br>    <span class="hljs-attr">yyy</span>: <span class="hljs-built_in">number</span>;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="二、联合类型"><a href="#二、联合类型" class="headerlink" title="二、联合类型 |"></a>二、联合类型 |</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">type</span> A = &#123; <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> &#125;;<br><span class="hljs-keyword">type</span> B = &#123; <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span> &#125;;<br><span class="hljs-keyword">type</span> C = A | B;<br><span class="hljs-keyword">const</span> <span class="hljs-attr">c</span>: C = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;sean&#x27;</span> &#125;;<br><span class="hljs-keyword">const</span> <span class="hljs-attr">c2</span>: C = &#123; <span class="hljs-attr">age</span>: <span class="hljs-number">18</span> &#125;;<br><span class="hljs-keyword">const</span> <span class="hljs-attr">c3</span>: C = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;sean&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">81</span> &#125;;<br></code></pre></td></tr></table></figure>
+
+<p>从上面可以看出，C 即可以是 A 也可以是 B，如果是对象类型，也可以是 A 和 B 中类型的联合。所以当我们不确定一个变量是字符串类型还是数字类型时，我们可以使用联合类型定义<code>type Props = string | number</code>。</p>
+<h3 id="类型收窄"><a href="#类型收窄" class="headerlink" title="类型收窄"></a>类型收窄</h3><p>这样很方便，但是在使用的时候，需要进行<strong>类型收窄</strong>。因为 Props 类型既可以是字符串，也可以是数字，那当它是字符串时，就不能使用数字类型的方法，例如<code>toFixed()</code>。如何进行类型收窄呢？方法有很多</p>
 <ul>
-<li>数字映射</li>
-<li>位运算</li>
+<li>typeof，instanceof，in（区分不出可选类型）</li>
+<li>直接赋值，逻辑判断……</li>
+<li>每一个都加上 kind 索引（只能是基本类型，且没有交集）</li>
+<li>断言 as</li>
 </ul>
-<h4 id="any-任意"><a href="#any-任意" class="headerlink" title="any 任意"></a>any 任意</h4><p>当一个变量为 any 类型，它可以是任何类型(废话)<br>那岂不是跟 js 一样了？<br>确实，使用了 any，让你一键还原到 JavaScript</p>
-<p>通常，不建议在任何场景使用 any，因为一个变量类型为 any，使用到这个变量的其他变量的类型也会变成 any，一个 any 会生出一窝 any。我们使用 ts 的目的就是类型检查，使用 any 就失去了使用 ts 的意义。</p>
-<p>那有些场景我真的不知道该使用什么类型啊</p>
-<p>那你可以使用 unknown 啊</p>
-<h4 id="unknown-未知"><a href="#unknown-未知" class="headerlink" title="unknown 未知"></a>unknown 未知</h4><p>emmmmm，未知是个什么类型？？？<br>你不是不知道你要用的是什么类型吗，所以给你个 unknown 啊<br>哦。。。哎？不对啊，我这变量声明成 unknown 类型怎么什么也做不了啊<br>对啊，声明的时候未知，使用的时候要先缩窄确定成具体类型才能用啊<br>哦。。。好像懂了，好像也没懂<br>没事，后面看到具体例子就知道了</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">let</span> <span class="hljs-attr">a</span>: <span class="hljs-built_in">unknown</span>;<br>a.<span class="hljs-title function_">toFixed</span>(); <span class="hljs-comment">// 报错，未知类型没有toFixed方法</span><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> a === <span class="hljs-string">&#x27;number&#x27;</span>) &#123;<br>  a.<span class="hljs-title function_">toFixed</span>(); <span class="hljs-comment">// ok, if判断语句已经把a类型收窄成number类型了</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-attr">p</span>: <span class="hljs-title class_">Props</span>;<br>p.<span class="hljs-title function_">toFixed</span>(<span class="hljs-number">2</span>); <span class="hljs-comment">// 报错</span><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> p === <span class="hljs-string">&#x27;number&#x27;</span>) p.<span class="hljs-title function_">toFixed</span>(<span class="hljs-number">2</span>); <span class="hljs-comment">// 成功</span><br></code></pre></td></tr></table></figure>
 
-<p>所以 unknown 也可以称为安全的 any</p>
-<h2 id="三、总结"><a href="#三、总结" class="headerlink" title="三、总结"></a>三、总结</h2><p>只看这些简单类型，ts 是不是跟 js 很相似呢？只不过是是在声明各种变量时加上类型了。</p>
-<p>下一期会介绍稍微高级的 TypeScript 类型，包括联合类型，交叉类型，类型声明等，尽情期待。</p>
+<h3 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h3><p>到这里，就有两个疑问了</p>
+<ol>
+<li>any 是所有类型的联合类型吗？</li>
+<li>什么类型时所有类型的联合类型？</li>
+</ol>
+<p><del>(你这问题问的好没水平啊)</del></p>
+<ol>
+<li>显然不是，因为联合类型需要进行类型收窄，才能使用对应类型的方法和属性，而 any 可以使用任意属性和方法</li>
+<li>unknown，unknown 只能使用所有属性共有的属性和方法，如果想用特有的类型属性或方法，需要先收窄类型。所以我们提倡使用 unknown，这样更安全。</li>
+</ol>
+<h2 id="三、交叉类型-amp"><a href="#三、交叉类型-amp" class="headerlink" title="三、交叉类型 &amp;"></a>三、交叉类型 &amp;</h2><p>联合类型是可以是也可以是，而交叉类型就是即是也是。</p>
+<p>哦。。。。那一个类型可不可以即是字符串也是数字呢？</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">type</span> <span class="hljs-title class_">Props</span> = <span class="hljs-built_in">string</span> &amp; <span class="hljs-built_in">number</span>;<br><span class="hljs-keyword">let</span> <span class="hljs-attr">p</span>: <span class="hljs-title class_">Props</span>; <span class="hljs-comment">// never</span><br><span class="hljs-keyword">type</span> A = &#123; <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> &#125;;<br><span class="hljs-keyword">type</span> B = &#123; <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span> &#125;;<br><span class="hljs-keyword">type</span> C = A &amp; B; <span class="hljs-comment">// &#123; name: string; age: number &#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>显然，一个类型不可以即是字符串也是数字，当两个基础类型交叉，只能得到<code>never</code>，所以交叉类型主要是个对象类型使用的。如果两个对象类型中有相同的键，且都为基础类型，交叉后也为<code>never</code>，不存在覆盖关系</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">type</span> C = &#123; <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> &#125; &amp; &#123; <span class="hljs-attr">name</span>: <span class="hljs-built_in">number</span> &#125;; <span class="hljs-comment">// &#123; name: never &#125;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>这节简单的介绍了类型别名、类型声明、联合类型和交叉类型，当然还有更复杂的例如函数的联合、交叉将会在函数篇介绍。</p>
 
               
             </div>
@@ -359,8 +394,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>TS保姆教程————Ts入门及基础类型</div>
-      <div>http://example.com/2022/09/22/TS保姆教程————基础类型/</div>
+      <div>Ts保姆系列————Ts高级类型</div>
+      <div>http://example.com/2022/10/07/Ts保姆系列————Ts高级类型/</div>
     </div>
     <div class="license-meta">
       
@@ -372,7 +407,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月22日</div>
+          <div>2022年10月7日</div>
         </div>
       
       
@@ -402,18 +437,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/07/Ts%E4%BF%9D%E5%A7%86%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E2%80%94%E2%80%94Ts%E9%AB%98%E7%BA%A7%E7%B1%BB%E5%9E%8B/" title="Ts保姆系列————Ts高级类型">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Ts保姆系列————Ts高级类型</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/06/%E5%89%8D%E7%AB%AF%E7%AE%97%E6%B3%95%E6%95%91%E8%B5%8E%E2%80%94%E2%80%94%E2%80%94%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="前端算法救赎———面试必会二分查找">
-                        <span class="hidden-mobile">前端算法救赎———面试必会二分查找</span>
+                      <a href="/2022/09/22/TS%E4%BF%9D%E5%A7%86%E6%95%99%E7%A8%8B%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/" title="TS保姆教程————Ts入门及基础类型">
+                        <span class="hidden-mobile">TS保姆教程————Ts入门及基础类型</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
