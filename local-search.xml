@@ -4,7 +4,36 @@
   
   
   <entry>
-    <title>Ts保姆系列————Ts高级类型</title>
+    <title>TS保姆系列————泛型</title>
+    <link href="/2022/10/20/TS%E4%BF%9D%E5%A7%86%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E6%B3%9B%E5%9E%8B/"/>
+    <url>/2022/10/20/TS%E4%BF%9D%E5%A7%86%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E2%80%94%E2%80%94%E6%B3%9B%E5%9E%8B/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>作者：Sean</p><p>前言：TypeScript，简称 ts，等于 type + JavaScript，有了 type 的 JavaScript 就像时刻有绿码在手的你（大误）<br>ts 可以保证在编译时就检查代码中的类型错误和问题，大大减少了空指针异常等问题，而 JavaScript 只能在运行时发现错误<br>泛型算是 JS er 学习 TS 的第一道门槛，不好理解但是非常重要，本文致力于将泛型尽量说的好理解和全面。<br>2022 年了，还不会 ts 你就落伍了！</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端开发</category>
+      
+      <category>前端基础</category>
+      
+      <category>TypeScript</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>TypeScript</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>TS保姆系列————TS高级类型</title>
     <link href="/2022/10/07/Ts%E4%BF%9D%E5%A7%86%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E2%80%94%E2%80%94Ts%E9%AB%98%E7%BA%A7%E7%B1%BB%E5%9E%8B/"/>
     <url>/2022/10/07/Ts%E4%BF%9D%E5%A7%86%E7%B3%BB%E5%88%97%E2%80%94%E2%80%94%E2%80%94%E2%80%94Ts%E9%AB%98%E7%BA%A7%E7%B1%BB%E5%9E%8B/</url>
     
